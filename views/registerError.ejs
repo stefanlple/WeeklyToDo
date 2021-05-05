@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <title>Register</title>
+    </head>
+    <body>
+        <h1>Register</h1>
+        <br>
+        <h4>Registrierungformular</h4>
+        <p style="color:red"><%= errorMessage %> </p>
+        <form action="/registration" method="POST">
+        <p>Username:</p> 
+        <input type="text" name="name" placeholder="Benutzername" required>
+        <br>
+        <p>Passwort:</p> 
+        <input type="password" name="password" placeholder="Passwort"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+        <br>
+        <p>Passwort wiederholen:</p> 
+        <input type="password" name="repassword" placeholder="Passwort wiederholen" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+        <br>
+        <button type="submit">Submit</button>
+        </form>
+        <p>
+            Das Passwort muss folgendes enhalten:
+             <br>-mindestens 8 & maximal 16 Zeichen
+             <br>-mindestens ein Großbuchstabe und Kleinbuchstabe
+             <br>-mindestens eine Nummer
+        </p>
+        <hr>
+        <p>
+            Wenn Sie bereits ein Konto besitzen, so melden Sie sich bitte hier an: 
+            <br>
+            <a href="/login"> [Login] </a> 
+        </p>
+        <a href="/begruessung"><img src="register.png" alt="Calendar Logo"></a>
+    </body>
+</html>

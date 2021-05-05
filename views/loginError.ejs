@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+        <h1>Login</h1>
+    </head>
+    <body>
+        <p style="color:red"><%= errorMessage%></p>
+        <form action="/auswertung" method="POST">
+        <input type="text" name="benutzername" placeholder="Username" required>
+        <br>
+        <input type="password" name="password" placeholder="Password" required>
+        <br>
+        <button type="submit">Submit</button>
+        </form>
+        <hr>
+        <p>
+            Hier können Sie sich registrieren:
+            <br>
+            <a href="/register"> [Registrierung] </a> 
+        </p>
+        <a href="/begruessung"><img src="calendar.png" alt="Calendar Logo"></a>
+    </body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Benutzerliste</title>
+    </head>
+    <body>
+        <table  border="1">
+            <% for(var i =0; i < benutzerverwaltung.length; i++) { %>
+                <tr>
+                    <td><%= benutzerverwaltung[i].id %></td>
+                    <td><%= benutzerverwaltung[i].benutzername %></td>
+                    <td><%= benutzerverwaltung[i].passwort %></td>
+                </tr>        
+            <%} %>
+        </table>
+    </body>
+</html>
