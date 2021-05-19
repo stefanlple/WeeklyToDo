@@ -31,14 +31,14 @@ header,
  }
 
  form button{
-   color: #d88771;
+   color: #7178d8;
    background: white;
    cursor: pointer;
    transition: all 0.3s ease;
  }
 
  form button:hover{
-   background: #d88771;
+   background: #718cd8;
    color: white;
  }
  
@@ -115,7 +115,7 @@ select {
 }
 
 select{
-  color: #f38466;
+  color: #7178d8;
   width: 10rem;
   cursor:pointer;
   padding: 1rem;
@@ -124,7 +124,7 @@ select{
 .select::after{
   content : "\25BC";
   position: absolute;
-  background: #ec5f38;
+  background: #7178d8;
   top: 0;
   right:0 ;
   padding: 1rem;
@@ -134,7 +134,7 @@ select{
 
 .select:hover::after{
   background: white;
-  color: #ec5f38;
+  color: #7178d8;
 }
 
 
