@@ -13,6 +13,8 @@ const db = new sqlite3.Database(DATABASE);
 
 app.use(express.static(__dirname + "/public")); 
 
+app.use(express.static(__dirname + "/views")); 
+
 app.listen(3000,function(){
     console.log("listening on port 3000");
 });
@@ -43,17 +45,24 @@ app.get("/benutzerliste", function (req, res) {
     });
 });
 
+app.get("/todolist", function(req,res){
+    res.sendFile(__dirname + "/views/ToDoList.html")
+});
 
 app.post("/registration", function(req,res){
     const benutzername= req.body.name;
     const password= req.body.password;
     const repassword= req.body.repassword;
     let errorMessage="";
-    //benutzerExistiert
-    //db.get("select * from benutzerverwaltung where benutzername = ?", [benutzername],
-    //    errorMessage="Der Benutzername existiert bereits. Bitte wählen Sie einen anderen Benutzernamen";    -> Wusste nicht wie ich die function "benutzerExistiert" implementieren kann.
-    //    res.render("registerError",{"errorMessage":errorMessage});
-    //);
+    db.get(
+        "select * from benutzerverwaltung where benutzername = ?",
+        [benutzername],
+        function (err, row) {
+            if(row.benutzername==benutzername)
+            errorMessage="Der Benutzername ist bereits vergeben!";
+            res.render("registerError",{"errorMessage":errorMessage});
+        }
+    );
     if(password!=repassword){
         errorMessage="Sie haben das Passwort falsch wiederholt";
         res.render("registerError",{"errorMessage":errorMessage});
@@ -62,7 +71,7 @@ app.post("/registration", function(req,res){
         errorMessage="Das Passwort stimmt nicht mit den Validierungsanforderungen überein";
         res.render("registerError",{"errorMessage":errorMessage});
     }
-    else{
+    else {
         db.run(
             `insert into benutzerverwaltung(benutzername, passwort) values (?, ?)`,
             [benutzername, password],
@@ -135,6 +144,7 @@ function hallo(benutzername){
     function (err, row) {
         return true;
         });
-
+// test function benutzerexistiert
 }
+
 
