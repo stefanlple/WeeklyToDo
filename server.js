@@ -7,10 +7,15 @@ app.use(express.urlencoded({extended: true}));
 app.engine(".ejs", require("ejs").__express);
 app.set("view engine", "ejs");
 
+//sqlite 
 const DATABASE="benutzerverwaltung.db";
 const sqlite3= require("sqlite3").verbose();
 const db = new sqlite3.Database(DATABASE);
 
+//bcrypt
+const bcrypt = require('bcrypt')
+
+//paths
 app.use(express.static(__dirname + "/public")); 
 
 app.use(express.static(__dirname + "/views")); 
@@ -45,70 +50,101 @@ app.get("/benutzerliste", function (req, res) {
     });
 });
 
-app.get("/todolist", function(req,res){
-    res.sendFile(__dirname + "/views/ToDoList.html")
+//Tage Todolist
+app.get("/wochenansicht", function(req,res){
+    res.sendFile(__dirname + "/views/Days/Wochenansicht.html")
 });
+
+app.get("/monday", function(req,res){
+    res.sendFile(__dirname + "/views/Days/Monday.html")
+});
+
+app.get("/tuesday", function(req,res){
+    res.sendFile(__dirname + "/views/Days/Tuesday.html")
+});
+
+app.get("/wednesday", function(req,res){
+    res.sendFile(__dirname + "/views/Days/Wednesday.html")
+});
+
+app.get("/thursday", function(req,res){
+    res.sendFile(__dirname + "/views/Days/Thursday.html")
+});
+
+app.get("/friday", function(req,res){
+    res.sendFile(__dirname + "/views/Days/Friday.html")
+});
+
+app.get("/saturday", function(req,res){
+    res.sendFile(__dirname + "/views/Days/Saturday.html")
+});
+
+app.get("/sunday", function(req,res){
+    res.sendFile(__dirname + "/views/Days/Sunday.html")
+});
+
 
 app.post("/registration", function(req,res){
     const benutzername= req.body.name;
     const password= req.body.password;
     const repassword= req.body.repassword;
     let errorMessage="";
-    db.get(
-        "select * from benutzerverwaltung where benutzername = ?",
-        [benutzername],
-        function (err, row) {
-            if(row.benutzername==benutzername)
-            errorMessage="Der Benutzername ist bereits vergeben!";
-            res.render("registerError",{"errorMessage":errorMessage});
-        }
-    );
+
     if(password!=repassword){
-        errorMessage="Sie haben das Passwort falsch wiederholt";
+        errorMessage="The password was repeated incorrectly";
         res.render("registerError",{"errorMessage":errorMessage});
     }
-    else if(passwordValidation(password)!=true){
-        errorMessage="Das Passwort stimmt nicht mit den Validierungsanforderungen überein";
+    if(passwordValidation(password)!=true){
+        errorMessage="The password does not match the validation requirements!";
         res.render("registerError",{"errorMessage":errorMessage});
     }
-    else {
-        db.run(
-            `insert into benutzerverwaltung(benutzername, passwort) values (?, ?)`,
-            [benutzername, password],
-            function (err) {
-                console.log(err);
-                res.redirect("/registration");
-            }
-        );
-        res.render("overview", {"benutzername":benutzername, "password":password});
-    }
-}); 
+
+    db.all(`SELECT * FROM benutzerverwaltung WHERE benutzername= '${benutzername}'`,
+     function(err,rows){
+        if (rows.length == 0) {
+            const hash= bcrypt.hashSync(password,10);
+                db.run(
+                    `insert into benutzerverwaltung(benutzername, passwort) values (?, ?)`,
+                    [benutzername, hash],
+                    function (err) {
+                        res.render("overview", {"benutzername":benutzername, "password":password});
+                    }
+                );
+        }
+        else{
+            errorMessage="The username already exists!"
+            res.render("registerError",{"errorMessage":errorMessage});
+        }     
+    }); 
+});
 
 app.post("/auswertung", function(req,res){
     const benutzername= req.body.benutzername;
     const password= req.body.password;
     let errorMessage="";
-    db.get(
-        "select * from benutzerverwaltung where benutzername = ?",
+    db.all(
+        "select passwort from benutzerverwaltung where benutzername = ?",
         [benutzername],
-        function (err, row) {
-            if (row) {
-                if (row.passwort == password) {
-                    res.render("overview", {benutzername: benutzername, password: password,});
-                } else {
-                    errorMessage="Sie haben ein falsches Passwort eingegeben.";
-                    res.render("loginError", {"errorMessage": errorMessage,
-                    });
+        function (err, rows) {
+            if (rows.length==1) {
+                const hash= rows[0].passwort;
+                const isValid= bcrypt.compareSync(password,hash);
+                if(isValid==true){
+                    //req.session.user=benutzername;
+                    res.render("overview", {"benutzername":benutzername, "password":password});
+                }
+                else{
+                    errorMessage="Wrong Password. Try again!";
+                    res.render("loginError", { "errorMessage": errorMessage });
                 }
             } 
-            else {
-                errorMessage="Kein Benutzer mit diesem Namen gefunden. Bitte versuchen Sie es nochmals.";
-                res.render("loginError", { "errorMessage": errorMessage });
-            }
 
-        }
-    );
-        
+            else {
+                errorMessage="No user with this username exists. Try again!";
+                    res.render("loginError", { "errorMessage": errorMessage });
+            }
+    });
+
 }); 
 
 
@@ -136,15 +172,5 @@ function passwordValidation(password){
         return true;
     }  
 }  
-
-function hallo(benutzername){
-    db.get(
-    "select * from benutzerverwaltung where benutzername = ?",
-    [benutzername],
-    function (err, row) {
-        return true;
-        });
-// test function benutzerexistiert
-}
 
 
