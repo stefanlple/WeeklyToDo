@@ -1,9 +1,11 @@
+//express
 const express=require("express");
 const app= express();
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+//ejs
 app.engine(".ejs", require("ejs").__express);
 app.set("view engine", "ejs");
 
@@ -15,6 +17,14 @@ const db = new sqlite3.Database(DATABASE);
 //bcrypt
 const bcrypt = require('bcrypt')
 
+//session
+const session= require('express-session');
+app.use(session({
+    secret: 'example',
+    saveUninitialized: false,
+    resave:false
+}));
+
 //paths
 app.use(express.static(__dirname + "/public")); 
 
@@ -24,6 +34,8 @@ app.listen(3000,function(){
     console.log("listening on port 3000");
 });
 
+
+//Links
 app.get("/begruessung", function(req,res){
     res.sendFile(__dirname +"/views/begruessung.html")
 });
@@ -32,27 +44,28 @@ app.get("/login", function(req,res){
     res.render("loginError",{"errorMessage":""});
 });
 
-app.get("/overview", function(req,res){
-    res.sendFile(__dirname + "/views/overview.html")
-});
-
 app.get("/register", function(req,res){
     res.render("registerError",{"errorMessage":""});
 });
 
 app.get("/logout", function(req,res){
+    //Abmelden
+    req.session.destroy();
+    //redirect
     res.redirect("/begruessung");
 });
 
+//Benutzerliste
 app.get("/benutzerliste", function (req, res) {
     db.all(`select * from benutzerverwaltung`, function (err, rows) {
         res.render("benutzerliste", { benutzerverwaltung: rows });
     });
 });
 
+
 //Tage Todolist
 app.get("/wochenansicht", function(req,res){
-    res.sendFile(__dirname + "/views/Days/Wochenansicht.html")
+    res.render("Wochenansicht", {"benutzername":req.session.user});
 });
 
 app.get("/monday", function(req,res){
@@ -107,7 +120,8 @@ app.post("/registration", function(req,res){
                     `insert into benutzerverwaltung(benutzername, passwort) values (?, ?)`,
                     [benutzername, hash],
                     function (err) {
-                        res.render("overview", {"benutzername":benutzername, "password":password});
+                        req.session.user=benutzername;
+                        res.render("Wochenansicht", {"benutzername":req.session.user});
                     }
                 );
         }
@@ -130,8 +144,8 @@ app.post("/auswertung", function(req,res){
                 const hash= rows[0].passwort;
                 const isValid= bcrypt.compareSync(password,hash);
                 if(isValid==true){
-                    //req.session.user=benutzername;
-                    res.render("overview", {"benutzername":benutzername, "password":password});
+                    req.session.user=benutzername;
+                    res.render("Wochenansicht", {"benutzername":req.session.user});
                 }
                 else{
                     errorMessage="Wrong Password. Try again!";
@@ -146,6 +160,7 @@ app.post("/auswertung", function(req,res){
     });
 
 }); 
+
 
 
 
