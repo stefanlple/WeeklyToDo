@@ -134,7 +134,8 @@ select{
     color: #ec5f38;
 }
 
-.menu{
+.menu,
+.save{
   background: transparent;
   color: rgb(66, 66, 66);
 }

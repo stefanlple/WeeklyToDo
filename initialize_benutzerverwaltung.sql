@@ -1,9 +1,15 @@
 Create table benutzerverwaltung(
     id integer primary key autoincrement,
     benutzername text not null,
-    passwort text not null
+    passwort text not null,
+    monday text,
+    tuesday text ,
+    wednesday text,
+    thursday text,
+    friday text,
+    saturday text,
+    sunday text
 );
 
-insert into benutzerverwaltung (benutzername, passwort) values ("Alice","§$Y45/912v");
+
 insert into benutzerverwaltung (benutzername, passwort) values ("Bob","Secret");
-insert into benutzerverwaltung (benutzername, passwort) values ("Carla","123");
