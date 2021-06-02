@@ -1,23 +1,49 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-    <head> 
-        <h1>Login</h1>
+    <head>
+        <title>Startseite</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <p style="color:red"><%= errorMessage%></p>
+
+        <div id="header">
+            <img src="register.png" alt="Logo" id="logo">
+        </div>
+        <div id="content">
+        
+        
+        <div id="formular">
         <form action="/auswertung" method="POST">
-        <input type="text" name="benutzername" placeholder="Username" required>
-        <br>
-        <input type="password" name="password" placeholder="Password" required>
-        <br>
-        <button type="submit">Submit</button>
+            <ul>
+                <h1>Anmeldung</h1>
+                <li>
+                    <input type="text" placeholder="Benutzername" name="benutzername" required>
+                </li>
+                <li>
+                    <input type="password" placeholder="Passwort" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                </li>
+                <p id="error"><%= errorMessage%></p>
+                <li>
+                    <button type="submit">anmelden</button>
+                </li>
+            </ul>
+            <div id="regLink">
+                <a href="/register">Account erstellen</a>
+            </div>
         </form>
-        <hr>
-        <p>
-            Hier können Sie sich registrieren:
-            <br>
-            <a href="/register"> [Registrierung] </a> 
-        </p>
-        <a href="/begruessung"><img src="calendar.png" alt="Calendar Logo"></a>
+    </div>
+    <div id="side">
+        <div id="sideContent">
+        <h1>Welcome!</h1>
+        <p>Features:</p>
+        <ul>
+        <li>Personal calendar</li>
+        <li>Share your calendar</li>
+        <li>Synchronise your calendar with friends and colleagues</li>
+        </ul>
+        </div>
+    </div>   
+    </div>
     </body>
 </html>

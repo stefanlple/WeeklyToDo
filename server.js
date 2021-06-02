@@ -68,6 +68,7 @@ app.get("/wochenansicht", function(req,res){
     res.render("Wochenansicht", {"benutzername":req.session.user});
 });
 
+
 app.get("/monday", function(req,res){
     res.sendFile(__dirname + "/views/Days/Monday.html")
 });
@@ -158,8 +159,22 @@ app.post("/auswertung", function(req,res){
                     res.render("loginError", { "errorMessage": errorMessage });
             }
     });
-
 }); 
+
+/*app.post("/monday", function(req,res){
+    db.all(`SELECT * FROM benutzerverwaltung WHERE benutzername= '${benutzername}'`,
+     function(err,rows){
+                db.run(
+                    `insert into benutzerverwaltung(monday) where benutzername = '${benutzername}' values (?)`,
+                    [mondayString],
+                    function (err) {
+                        res.render("Monday", {"benutzername":req.session.user});
+                    }
+                );
+                
+            }
+        }
+});*/
 
 
 

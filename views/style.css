@@ -1,0 +1,169 @@
+body {
+    font-family:calibri;
+    margin:0;
+    padding:0;
+}
+
+
+#header {
+    padding-right:0px;
+    height:80px;
+    box-shadow: 0px 1px 3px #999;
+}
+
+#content {
+    width: 1200px;
+    margin:0px auto;
+    margin-top:100px;
+}
+
+#logo {
+    float: left;
+    width: 50px;
+    margin-top:15px;
+    margin-left:40px;
+}
+
+#formular {
+    background-color:#fff;
+    float: right;
+    width: 300px;
+    height:485px;
+    padding-top:15px;
+    box-shadow: 0px 3px 10px #999;
+}
+
+#formular label{
+    font-size:18px;
+}
+
+#formular ul{
+    padding:0;
+	margin:0;
+    margin-left:25px;
+	list-style:none;
+}
+
+#formular li{
+    padding-top:10px ;
+}
+
+#formular input{
+    width:250px;
+    height:30px;
+    margin-top:10px;
+    border:none;
+    border-bottom-style:inset;
+    border-color:#cccccc;
+    border-width:1px;
+}
+
+#formular input:focus{
+    border-color:#0066cc;
+    outline:none;
+}
+#formular button{
+    padding:0;
+    margin:0;
+    width:255px;
+    height:30px;
+    margin-top:10px;
+    background-color:#0099cc;
+    color:white;
+    border:none;
+    font-size:16px;
+    
+}
+
+#formular button:hover{
+    background-color:#0066cc;
+}
+
+#formular button:active{
+    background-color:#0033cc;
+}
+
+#regLink{
+    width:275px;
+    margin-left:15px;
+    margin-top:25px;
+    border-top-style:solid;
+    border-top-width:1px;
+    border-top-color:#999;
+    text-align:center;
+}
+
+#regLink a{
+    width:270px;
+    float:left;
+    margin-top:25px;
+    
+}
+
+#rFormular {
+    background-color:#fff;
+    margin:0 auto;
+    width: 300px;
+    height:485px;
+    padding-top:15px;
+    box-shadow: 0px 3px 10px #999;
+}
+
+#rFormular label{
+    font-size:18px;
+}
+
+#rFormular ul{
+    padding:0;
+	margin:0;
+    margin-left:25px;
+	list-style:none;
+}
+
+#rFormular li{
+    padding-top:10px ;
+}
+
+#error{
+    width:250px;
+    margin:0;
+    padding:0;
+    color:red;
+    font-size:12px;
+    text-align:center;
+}
+
+#rFormular input{
+    width:250px;
+    height:30px;
+    margin-top:10px;
+    border:none;
+    border-bottom-style:inset;
+    border-color:#cccccc;
+    border-width:1px;
+}
+
+#rFormular input:focus{
+    border-color:#0066cc;
+    outline:none;
+}
+#rFormular button{
+    padding:0;
+    margin:0;
+    width:255px;
+    height:30px;
+    margin-top:10px;
+    background-color:#0099cc;
+    color:white;
+    border:none;
+    font-size:16px;
+    
+}
+
+#rFormular button:hover{
+    background-color:#0066cc;
+}
+
+#rFormular button:active{
+    background-color:#0033cc;
+}
