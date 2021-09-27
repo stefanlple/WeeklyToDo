@@ -5,7 +5,7 @@ const todoList= document.querySelector(".todo-list");
 const filterOption= document.querySelector(".filter-todo");
 //Event Listener
 document.addEventListener('DOMContentLoaded', getTodos);
-todoButton.addEventListener('click', addTodo);
+//todoButton.addEventListener('click', addTodo); 
 todoList.addEventListener('click', deleteCheck);
 filterOption.addEventListener('click', filterTodo);
 
@@ -14,32 +14,32 @@ function addTodo(event){
     //Todo Div
     const todoDiv= document.createElement("div");
     todoDiv.classList.add("todo");
-    //Liste generieren
+    //generate list
     const newTodo= document.createElement('li');
     newTodo.innerText= todoInput.value;
     newTodo.classList.add('todo-item');
     todoDiv.appendChild(newTodo);
-    //Zum Localstorage hinzufügen
+    //localstorage (test)
     saveLocalTodos(todoInput.value);
-    // Check Taste
+    // Check button
     const completedButton = document.createElement('button');
     completedButton.innerHTML= '<i class="fas fa-check"></i>';
     completedButton.classList.add("complete-btn");
     todoDiv.appendChild(completedButton);
-    // Check Trash Taste
+    // Check Trash button
     const trashButton = document.createElement('button');
     trashButton.innerHTML= '<i class="fas fa-trash"></i>';
     trashButton.classList.add("trash-btn");
     todoDiv.appendChild(trashButton);
     //Append to List
     todoList.appendChild(todoDiv);
-    //Clear Eingabe
+    //Clear 
     todoInput.value = "";
 }
 
 function deleteCheck(e){
     const item= e.target;
-    //Löschen
+    //Delete
     if(item.classList[0]=== 'trash-btn'){
         const todo= item.parentElement;
         //Animation
@@ -56,7 +56,7 @@ function deleteCheck(e){
     }
 }
 
-function filterTodo(e){
+function filterTodo(e){                  n
     const todos= todoList.childNodes;
     todos.forEach(function(todo){
         switch(e.target.value){
@@ -84,41 +84,41 @@ function filterTodo(e){
 }
 
 function saveLocalTodos(todo) {
-    let todosTuesday;
-    if (localStorage.getItem('todosTuesday') === null) {
-        todosTuesday = [];
+    let todosSaturday;
+    if (localStorage.getItem('todosSaturday') === null) {
+        todosSaturday = [];
     } else {
-        todosTuesday = JSON.parse(localStorage.getItem('todosTuesday'));
+        todosSaturday = JSON.parse(localStorage.getItem('todosSaturday'));
     }
-    todosTuesday.push(todo);
-    localStorage.setItem('todosTuesday', JSON.stringify(todosTuesday));
+    todosSaturday.push(todo);
+    localStorage.setItem('todosSaturday', JSON.stringify(todosSaturday));
 }
 
 function getTodos() {
-    let todosTuesday;
-    if (localStorage.getItem('todosTuesday') === null) {
-        todosTuesday = [];
+    let todosSaturday;
+    if (localStorage.getItem('todosSaturday') === null) {
+        todosSaturday = [];
     } 
     else {
-        todosTuesday = JSON.parse(localStorage.getItem('todosTuesday'));
+        todosSaturday = JSON.parse(localStorage.getItem('todosSaturday'));
     }
-    todosTuesday.forEach(function (todo) {
+    todosSaturday.forEach(function (todo) {
         // todo div
         const todoDiv = document.createElement('div');
         todoDiv.classList.add('todo');
-        // liste generieren
+        // generate list
         const newToDo = document.createElement('li');
         newToDo.innerText = todo;  
         newToDo.classList.add('todo-item');
         todoDiv.appendChild(newToDo);
-        // localstorage hinzufügen
+        // 
         // saveLocalTodos(todoInput.value);
-        // Checked Taste
+        // Checked button
         const completedButton = document.createElement('button');
         completedButton.innerHTML = "<i class='fas fa-check'></i>";
         completedButton.classList.add('complete-btn');
         todoDiv.appendChild(completedButton)
-        // Trash Taste
+        // Trash button
         const trashButton = document.createElement('button');
         trashButton.innerHTML = "<i class='fas fa-trash'></i>";
         trashButton.classList.add('trash-btn');
@@ -129,14 +129,14 @@ function getTodos() {
 }
 
 function removeLocalTodos(todo){
-    let todosTuesday;
-    if (localStorage.getItem('todosTuesday') === null) {
-        todosTuesday = [];
+    let todosSaturday;
+    if (localStorage.getItem('todosSaturday') === null) {
+        todosSaturday = [];
     } else {
-        todosTuesday = JSON.parse(localStorage.getItem('todosTuesday'));
+        todosSaturday = JSON.parse(localStorage.getItem('todosSaturday'));
     }
     const todoindex = todo.children[0].innerText;
-    todosTuesday.splice(todosTuesday.indexOf(todoindex), 1);
-    localStorage.setItem('todosTuesday', JSON.stringify(todosTuesday));
+    todosSaturday.splice(todosSaturday.indexOf(todoindex), 1);
+    localStorage.setItem('todosSaturday', JSON.stringify(todosSaturday));
 } 
 

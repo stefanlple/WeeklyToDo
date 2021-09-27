@@ -21,14 +21,144 @@
     </header>
     <table>
          <tr>
-            <th><a href="/monday">Monday</a></th>
-            <th><a href="/tuesday">Tuesday</a></th>
-            <th><a href="/wednesday">Wednesday</th>
-            <th><a href="/thursday">Thursday</a></th>
-            <th><a href="/friday">Friday</a></th>
-            <th><a href="/saturday">Saturday</a></th>
-            <th><a href="/sunday">Sunday</a></th>
+            <th><a href="/showday?day=Monday">Monday</a></th>
+            <th><a href="/showday?day=Tuesday">Tuesday</a></th>
+            <th><a href="/showday?day=Wednesday">Wednesday</th>
+            <th><a href="/showday?day=Thursday">Thursday</a></th>
+            <th><a href="/showday?day=Friday">Friday</a></th>
+            <th><a href="/showday?day=Saturday">Saturday</a></th>
+            <th><a href="/showday?day=Sunday">Sunday</a></th>
         </tr>
+        <tr> 
+            <td>
+              <ul>
+              <% for(let i = 0; i < list.length; i++){ %> 
+              <% if (list[i].day == "Monday" && list[i].done =="false"){ %>
+                <li><%= list[i].todo%></li>
+              <% } %>
+              <% } %>
+              </ul>
+            </td>
+            <td>
+              <ul>
+              <% for(let i = 0; i < list.length; i++){ %> 
+              <% if (list[i].day == "Tuesday" && list[i].done =="false"){ %>
+                <li><%= list[i].todo%></li>
+              <% } %>
+              <% } %>
+              </ul>
+            </td>
+            <td>
+              <ul>
+              <% for(let i = 0; i < list.length; i++){ %>   
+              <% if (list[i].day == "Wednesday" && list[i].done =="false"){ %>
+                <li><%= list[i].todo%></li>
+              <% } %>
+              <% } %>
+              </ul>
+            </td>
+            <td>
+              <ul>
+              <% for(let i = 0; i < list.length; i++){ %> 
+              <% if (list[i].day == "Thursday" && list[i].done =="false"){ %>
+                <li><%= list[i].todo%></li>
+              <% } %>
+              <% } %>
+              </ul>
+            </td>
+            <td>
+              <ul>
+              <% for(let i = 0; i < list.length; i++){ %> 
+              <% if (list[i].day == "Friday" && list[i].done =="false"){ %>
+                <li><%= list[i].todo%></li>
+              <% } %>
+              <% } %>
+              </ul>
+            </td>
+            <td>
+              <ul>
+              <% for(let i = 0; i < list.length; i++){ %>   
+              <% if (list[i].day == "Saturday" && list[i].done =="false"){ %>
+                <li><%= list[i].todo%></li>
+              <% } %>
+              <% } %>
+              </ul>
+            </td>
+            <td>
+              <ul>
+              <% for(let i = 0; i < list.length; i++){ %> 
+              <% if (list[i].day == "Sunday" && list[i].done =="false"){ %>
+                <li><%= list[i].todo%></li>
+              <% } %>
+              <% } %>
+              </ul>
+            </td>
+        </tr>
+        <tr class=crossed> 
+          <td>
+            <ul>
+            <% for(let i = 0; i < list.length; i++){ %> 
+            <% if (list[i].day == "Monday" && list[i].done =="true"){ %>
+              <li><%= list[i].todo%></li>
+            <% } %>
+            <% } %>
+            </ul>
+          </td>
+          <td>
+            <ul>
+            <% for(let i = 0; i < list.length; i++){ %> 
+            <% if (list[i].day == "Tuesday" && list[i].done =="true"){ %>
+              <li><%= list[i].todo%></li>
+            <% } %>
+            <% } %>
+            </ul>
+          </td>
+          <td>
+            <ul>
+            <% for(let i = 0; i < list.length; i++){ %>   
+            <% if (list[i].day == "Wednesday" && list[i].done =="true"){ %>
+              <li><%= list[i].todo%></li>
+            <% } %>
+            <% } %>
+            </ul>
+          </td>
+          <td>
+            <ul>
+            <% for(let i = 0; i < list.length; i++){ %> 
+            <% if (list[i].day == "Thursday" && list[i].done =="true"){ %>
+              <li><%= list[i].todo%></li>
+            <% } %>
+            <% } %>
+            </ul>
+          </td>
+          <td>
+            <ul>
+            <% for(let i = 0; i < list.length; i++){ %> 
+            <% if (list[i].day == "Friday" && list[i].done =="true"){ %>
+              <li><%= list[i].todo%></li>
+            <% } %>
+            <% } %>
+            </ul>
+          </td>
+          <td>
+            <ul>
+            <% for(let i = 0; i < list.length; i++){ %>   
+            <% if (list[i].day == "Saturday" && list[i].done =="true"){ %>
+              <li><%= list[i].todo%></li>
+            <% } %>
+            <% } %>
+            </ul>
+          </td>
+          <td>
+            <ul>
+            <% for(let i = 0; i < list.length; i++){ %> 
+            <% if (list[i].day == "Sunday" && list[i].done =="true"){ %>
+              <li><%= list[i].todo%></li>
+            <% } %>
+            <% } %>
+            </ul>
+          </td>
+      </tr>
     </table>
   </body>
 </html>

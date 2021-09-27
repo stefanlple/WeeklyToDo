@@ -1,5 +1,2 @@
-#ToDoCalendar
+#WeeklyToDo
 
-## Mitglieder:
-
-Dennis, Colin, Pham, Stefan

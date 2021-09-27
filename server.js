@@ -49,13 +49,13 @@ app.get("/register", function(req,res){
 });
 
 app.get("/logout", function(req,res){
-    //Abmelden
+    //Logout
     req.session.destroy();
     //redirect
-    res.redirect("/begruessung");
+    res.redirect("/login");
 });
 
-//Benutzerliste
+//Userlist (Test)
 app.get("/benutzerliste", function (req, res) {
     db.all(`select * from benutzerverwaltung`, function (err, rows) {
         res.render("benutzerliste", { benutzerverwaltung: rows });
@@ -63,41 +63,8 @@ app.get("/benutzerliste", function (req, res) {
 });
 
 
-//Tage Todolist
-app.get("/wochenansicht", function(req,res){
-    res.render("Wochenansicht", {"benutzername":req.session.user});
-});
 
-
-app.get("/monday", function(req,res){
-    res.sendFile(__dirname + "/views/Days/Monday.html")
-});
-
-app.get("/tuesday", function(req,res){
-    res.sendFile(__dirname + "/views/Days/Tuesday.html")
-});
-
-app.get("/wednesday", function(req,res){
-    res.sendFile(__dirname + "/views/Days/Wednesday.html")
-});
-
-app.get("/thursday", function(req,res){
-    res.sendFile(__dirname + "/views/Days/Thursday.html")
-});
-
-app.get("/friday", function(req,res){
-    res.sendFile(__dirname + "/views/Days/Friday.html")
-});
-
-app.get("/saturday", function(req,res){
-    res.sendFile(__dirname + "/views/Days/Saturday.html")
-});
-
-app.get("/sunday", function(req,res){
-    res.sendFile(__dirname + "/views/Days/Sunday.html")
-});
-
-
+//register
 app.post("/registration", function(req,res){
     const benutzername= req.body.name;
     const password= req.body.password;
@@ -112,7 +79,7 @@ app.post("/registration", function(req,res){
         errorMessage="The password does not match the validation requirements!";
         res.render("registerError",{"errorMessage":errorMessage});
     }
-
+    else{
     db.all(`SELECT * FROM benutzerverwaltung WHERE benutzername= '${benutzername}'`,
      function(err,rows){
         if (rows.length == 0) {
@@ -122,7 +89,7 @@ app.post("/registration", function(req,res){
                     [benutzername, hash],
                     function (err) {
                         req.session.user=benutzername;
-                        res.render("Wochenansicht", {"benutzername":req.session.user});
+                        res.redirect("/wochenansicht");
                     }
                 );
         }
@@ -131,8 +98,9 @@ app.post("/registration", function(req,res){
             res.render("registerError",{"errorMessage":errorMessage});
         }     
     }); 
+}
 });
-
+//login
 app.post("/auswertung", function(req,res){
     const benutzername= req.body.benutzername;
     const password= req.body.password;
@@ -146,7 +114,7 @@ app.post("/auswertung", function(req,res){
                 const isValid= bcrypt.compareSync(password,hash);
                 if(isValid==true){
                     req.session.user=benutzername;
-                    res.render("Wochenansicht", {"benutzername":req.session.user});
+                    res.redirect("/wochenansicht");
                 }
                 else{
                     errorMessage="Wrong Password. Try again!";
@@ -160,23 +128,82 @@ app.post("/auswertung", function(req,res){
             }
     });
 }); 
-
-/*app.post("/monday", function(req,res){
-    db.all(`SELECT * FROM benutzerverwaltung WHERE benutzername= '${benutzername}'`,
-     function(err,rows){
-                db.run(
-                    `insert into benutzerverwaltung(monday) where benutzername = '${benutzername}' values (?)`,
-                    [mondayString],
-                    function (err) {
-                        res.render("Monday", {"benutzername":req.session.user});
-                    }
-                );
-                
-            }
+//todolist
+app.get("/showday", function(req,res){
+    if (req.session.user){
+        const selectedDay=req.query.day;
+        db.all(`select * from todos where benutzername = '${req.session.user}' and day='${selectedDay}'`,
+        function(err,rows){
+            res.render("Showday", {day:selectedDay, list: rows});
+        });
+    }
+    else{
+            res.redirect("/login");
         }
-});*/
+});
+
+//weekly Todolist
+app.get("/wochenansicht", function(req,res){
+    if (req.session.user){
+    db.all(`select * from todos where benutzername = '${req.session.user}'`,
+    function(err,rows){
+        res.render("Wochenansicht", {"benutzername":req.session.user, list: rows});
+    }); 
+}   
+    else{
+        res.redirect("/login");
+}
+});
+
+//clear week
+app.get("/clear", function(req,res){
+    const user= req.session.user;
+    db.run(`Delete from todos where benutzername='${user}'`,
+        function(err){
+            res.redirect("/wochenansicht")
+        });
+});
+//add Todo
+app.post("/addTodo", function(req,res){
+    const user=req.session.user;
+    const day= req.body.day;
+    const newTodo= req.body.newTodo;
+    db.run(`insert into todos (benutzername, day, todo, done) values ('${user}','${day}','${newTodo}',"false")`,
+        function(err){
+            res.redirect(`/showday?day=${day}`);
+        });
+});
 
 
+//delete todo
+app.post("/delete", function(req,res){
+    const user= req.session.user;
+    const id= req.body.id;
+    const day= req.body.day;
+    db.run(`Delete from todos where id=${id} and benutzername='${user}'`,
+    function(err){
+        res.redirect(`/showday?day=${day}`);
+    }
+    );
+})
+//done todo
+app.post("/done", function(req,res){
+    const id= req.body.id;
+    const user= req.session.user;
+    let done= req.body.done;
+    const day= req.body.day;
+    if(done=="false"){
+        done="true";
+    }
+    else{
+        done="false";
+    }
+    db.run(`update todos set done='${done}' where id=${id} and benutzername='${user}'`,
+     function(err){
+         res.redirect(`/showday?day=${day}`);
+
+     });
+});
 
 
 function passwordValidation(password){
@@ -202,5 +229,3 @@ function passwordValidation(password){
         return true;
     }  
 }  
-
-

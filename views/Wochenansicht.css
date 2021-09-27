@@ -9,7 +9,6 @@ body{
     font-family: "Poppins", sans-serif;
     min-height: 100vh;
   }
-
 header{
     font-size: 1.5rem;
     display: flex;
@@ -49,3 +48,7 @@ th,td{
     background: transparent;
     color: rgb(66, 66, 66);
   }
+
+.crossed{
+    text-decoration: line-through;
+}

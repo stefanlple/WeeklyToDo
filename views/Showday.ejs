@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale= 1.0"/>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,200&display=swap" rel="stylesheet">
-    <link href= "./Days/Friday.css" rel="stylesheet"  type="text/css"/>
+    <link href= "/css/<%= day %>.css" rel="stylesheet"  type="text/css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Friday</title>
+    <title><%= day %></title>
   </head>
   <body>
       <button  class="menu" onclick="location.href='/wochenansicht'" type="button">
@@ -15,15 +15,12 @@
       <button class="menu" onclick="location.href='/logout'" type="button">
       <i class="fas fa-sign-out-alt"></i> Log out
       </button>
-      <button class="save" onclick="location.href='#'" type="button">
-        <i class="fas fa-save"></i> Save
-      </button>
-    
     <header>
-      <h1>Friday</h1>
+      <h1><%= day %></h1>
     </header>
-    <form>
-      <input type="text" class="todo-input">
+    <form action="/addTodo" method="POST">
+      <input type="text" class="todo-input" name="newTodo">
+      <input type="hidden" value=<%= day %> name="day">
       <button class="todo-button" type="submit">
         <i class="fas fa-plus-square"></i>
       </button>
@@ -36,8 +33,25 @@
       </div>
     </form>
     <div class="todo-container">
-      <ul class="todo-list"></ul>
+      <ul class="todo-list">
+        <% for(let i = 0; i < list.length; i++){ %>
+          <form action="/done" method="POST" style="display:inline">
+          <% if (list[i].done == "false"){ %>
+            <div class="todo">
+            <% } else { %>
+            <div class="todo completed">
+            <% } %>
+            <li class="todo-item"> <%= list[i].todo %></li>
+            <button type="submit" class="complete-btn"><i class="fas fa-check"></i></button>
+            <button type="submit" formaction="/delete" class="trash-btn"><i class="fas fa-trash"></i></button>
+            <input type="hidden" value= "<%=list[i].id%>" name="id">
+            <input type="hidden" value= "<%=list[i].day%>" name="day">
+            <input type="hidden" value= "<%=list[i].done%>" name="done">
+            </div>
+          </form>
+          <% } %>
+      </ul>
     </div>
-    <script src="./Days/Friday.js"></script>
+    <script src="views/Showday.js"></script>
   </body>
 </html>
