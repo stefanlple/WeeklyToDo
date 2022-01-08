@@ -37,6 +37,7 @@ body {
     font-size:18px;
 }
 
+
 #formular ul{
     padding:0;
 	margin:0;
@@ -123,7 +124,11 @@ body {
 #rFormular li{
     padding-top:10px ;
 }
-
+.button1{
+    width:100px;
+    height: 35px;
+    border: none;
+}
 #error{
     width:250px;
     margin:0;

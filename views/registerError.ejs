@@ -6,29 +6,29 @@
     <body>
         <h1>Register</h1>
         <br>
-        <h4>Registrierungformular</h4>
+        <h4>Account</h4>
         <p style="color:red"><%= errorMessage %> </p>
         <form action="/registration" method="POST">
         <p>Username:</p> 
-        <input type="text" name="name" placeholder="Benutzername" required>
+        <input type="text" name="name" placeholder="Username" required>
         <br>
-        <p>Passwort:</p> 
-        <input type="password" name="password" placeholder="Passwort"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+        <p>Password:</p> 
+        <input type="password" name="password" placeholder="Password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
         <br>
-        <p>Passwort wiederholen:</p> 
-        <input type="password" name="repassword" placeholder="Passwort wiederholen" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+        <p>Reapeat Password:</p> 
+        <input type="password" name="repassword" placeholder="Reapeat the password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
         <br>
         <button type="submit">Submit</button>
         </form>
         <p>
-            Das Passwort muss folgendes enhalten:
-             <br>-mindestens 8 & maximal 16 Zeichen
-             <br>-mindestens ein Großbuchstabe und Kleinbuchstabe
-             <br>-mindestens eine Nummer
+            The Password must contain:
+             <br>-min 8 & max 16 character
+             <br>-min one uppercase und lower case letter
+             <br>-min one number
         </p>
         <hr>
         <p>
-            Wenn Sie bereits ein Konto besitzen, so melden Sie sich bitte hier an: 
+            If you already have an account, sign in:
             <br>
             <a href="/login"> [Login] </a> 
         </p>

@@ -22,7 +22,13 @@ header,
    justify-content: center;
    align-items: center;
  }
-
+ .button1{
+  width:100px;
+  height: 35px;
+  border: none;
+  margin-top: 1.5em;
+  margin-left: 1.5em;
+}
  form input, form button{
    padding: 0.5rem;
    font-size: 2rem;

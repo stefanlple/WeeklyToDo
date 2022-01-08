@@ -38,7 +38,13 @@ form button:hover {
   background: #fda085;
   color: whitesmoke;
 }
-
+.button1{
+  width:100px;
+  height: 35px;
+  border: none;
+  margin-top: 1.5em;
+  margin-left: 1.5em;
+}
 .todo-container {
   display: flex;
   justify-content: center;

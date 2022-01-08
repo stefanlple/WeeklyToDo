@@ -21,6 +21,8 @@ header,table{
 
 .willkommen{
     text-align: center;
+    font-size: 1.5em;
+    margin-top:3em;
 }
 h1{
     text-align: center;
@@ -30,17 +32,33 @@ table {
     margin-right: auto;
     table-layout: fixed;
     list-style-position: inside;
+
 }
 
-
+.button1{
+    width:100px;
+    height: 35px;
+    border: none;
+    margin-top: 1.5em;
+    margin-left: 1.5em;
+  }
 table,th,td{
     border: 1px solid #000;
     border-collapse:collapse;
+    border: 3px solid white;
 }
 
 
 th,td{
     padding: 10px;
+    width: 200px;
+}
+
+.tableHeader a{
+    text-decoration: none;
+    color: white;
+    font-weight: bolder;
+    font-size: 1em;
 }
 
 .menu,

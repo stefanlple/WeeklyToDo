@@ -9,25 +9,25 @@
     <title> Weekly View</title>
   </head>
   <body>
-    <button class="menu" onclick="location.href='/logout'" type="button">
+    <button class="menu button1" onclick="location.href='/logout'" type="button">
       <i class="fas fa-sign-out-alt"></i> Log out
     </button>
-    <button class="clear" onclick="location.href='/clear'" type="button">
+    <button class="clear button1" onclick="location.href='/clear'" type="button">
       <i class="fas fa-trash-alt"></i> Clear week
     </button>
     <p class="willkommen"><%=benutzername%></p>
     <header>
-      <h1>Weekly View</h1>
+      <h1>Week View</h1>
     </header>
     <table>
          <tr>
-            <th><a href="/showday?day=Monday">Monday</a></th>
-            <th><a href="/showday?day=Tuesday">Tuesday</a></th>
-            <th><a href="/showday?day=Wednesday">Wednesday</th>
-            <th><a href="/showday?day=Thursday">Thursday</a></th>
-            <th><a href="/showday?day=Friday">Friday</a></th>
-            <th><a href="/showday?day=Saturday">Saturday</a></th>
-            <th><a href="/showday?day=Sunday">Sunday</a></th>
+            <th class="tableHeader"><a href="/showday?day=Monday" class="tableHeader">Monday</a></th>
+            <th class="tableHeader"><a href="/showday?day=Tuesday">Tuesday</a></th>
+            <th class="tableHeader"><a href="/showday?day=Wednesday">Wednesday</th>
+            <th class="tableHeader"><a href="/showday?day=Thursday">Thursday</a></th>
+            <th class="tableHeader"><a href="/showday?day=Friday">Friday</a></th>
+            <th class="tableHeader"><a href="/showday?day=Saturday">Saturday</a></th>
+            <th class="tableHeader"><a href="/showday?day=Sunday">Sunday</a></th>
         </tr>
         <tr> 
             <td>
